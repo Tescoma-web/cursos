@@ -7,6 +7,9 @@
   <meta name="description" content="Tescoma España, referente en utensilios de cocina de alta calidad desde 1992. Más de 2500 productos. Tienda online con envío en 72h. Portal B2B para profesionales."/>
   <meta name="robots" content="index, follow"/>
   <link rel="canonical" href="https://www.tescoma.es/"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <link rel="shortcut icon" href="favicon.svg"/>
+  <meta name="theme-color" content="#CC0000"/>
   <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
   <meta property="og:title" content="Tescoma España | Utensilios de Cocina"/>
   <meta property="og:description" content="Más de 30 años fabricando utensilios de cocina de alta calidad. Diseño premiado. Envío 72h a toda España."/>
@@ -55,10 +58,11 @@
     .btn-nv-o:hover { border-color: var(--red-dark); background: rgba(204,0,0,.05); color: var(--red-dark); }
 
     /* ── HERO CAROUSEL ── */
-    .hero { position: relative; height: 600px; overflow: hidden; background: var(--dark); }
-    .hero-slides { display: flex; height: 100%; transition: transform .6s cubic-bezier(.4,0,.2,1); will-change: transform; }
+    .hero { position: relative; height: 600px; overflow: hidden; background: var(--dark); width: 100%; }
+    .hero-slides { display: flex; height: 100%; width: 100%; transition: transform .6s cubic-bezier(.4,0,.2,1); will-change: transform; }
     .hero-slide {
-      min-width: 100%; height: 100%; position: relative; flex-shrink: 0;
+      flex: 0 0 100%; width: 100%; height: 100%;
+      position: relative; overflow: hidden;
       background: linear-gradient(135deg,#1a1a1a,#2c2020);
       display: flex; align-items: center;
     }
@@ -70,13 +74,13 @@
       position: absolute; inset: 0;
       background-size: cover; background-position: center; background-repeat: no-repeat;
     }
-    .slide-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .slide-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; max-width: 100%; }
     .slide-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(10,10,10,.88) 30%, rgba(10,10,10,.45) 60%, rgba(10,10,10,.10) 100%); }
     /* Slides con fondo claro — overlay más fuerte */
     .hero-slide:nth-child(2) .slide-overlay { background: linear-gradient(to right, rgba(5,5,5,.92) 30%, rgba(5,5,5,.60) 60%, rgba(5,5,5,.25) 100%); }
     .hero-slide:nth-child(2) .slide-overlay { background: linear-gradient(to right, rgba(5,5,5,.94) 32%, rgba(5,5,5,.70) 62%, rgba(5,5,5,.35) 100%); }
     .hero-slide:nth-child(3) .slide-overlay { background: linear-gradient(to right, rgba(5,5,5,.93) 32%, rgba(5,5,5,.70) 62%, rgba(5,5,5,.35) 100%); }
-    .slide-content { position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 0 24px; width: 100%; }
+    .slide-content { position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 0 24px; width: 100%; box-sizing: border-box; }
     .slide-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--red); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
     .slide-eyebrow::before { content: '—'; }
     .slide-title { font-size: clamp(30px,4.2vw,54px); font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 18px; max-width: 500px; }
@@ -163,8 +167,21 @@
     .tl-d { font-size: 13px; color: var(--muted); line-height: 1.6; }
 
     /* ── WHY ── */
-    .why-section { background: #585858; padding: 88px 24px; }
-    .why-inner { max-width: 1280px; margin: 0 auto; }
+    .why-section { background: #191919; padding: 88px 0; }
+    .why-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+    /* Franjas blancas laterales */
+    .why-section { position: relative; }
+    .why-section::before, .why-section::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: calc((100% - 1280px) / 2);
+      background: #fff;
+      z-index: 0;
+    }
+    .why-section::before { left: 0; }
+    .why-section::after  { right: 0; }
+    .why-inner { position: relative; z-index: 1; }
     .why-ol { text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--red); margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; }
     .why-ol::before { content: '—'; }
     .why-title { text-align: center; font-size: clamp(28px,4vw,46px); font-weight: 900; color: #fff; margin-bottom: 12px; }
@@ -215,31 +232,29 @@
     .wk-price { font-size: 24px; font-weight: 900; margin-bottom: 8px; }
     .wk-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
 
-    /* ── BOTÓN RESERVAR EN TARJETA ── */
+    /* ── BOTÓN RESERVAR + BARRA PLAZAS ── */
     .wk-reserve-btn {
       display: flex; align-items: center; justify-content: center; gap: 8px;
       width: 100%; margin-top: 18px;
       background: var(--red); color: #fff;
       font-family: var(--font); font-size: 14px; font-weight: 700;
       padding: 12px 20px; border-radius: 6px; border: none;
-      cursor: pointer; transition: all .2s; text-align: center;
+      cursor: pointer; transition: all .2s;
     }
-    .wk-reserve-btn:hover { background: var(--red-dark); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(204,0,0,.3); }
-    .wk-reserve-btn svg { flex-shrink: 0; }
+    .wk-reserve-btn:hover { background: #a00; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(204,0,0,.3); }
     .wk-spots-bar { margin-top: 14px; }
     .wk-spots-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; }
     .wk-spots-label span:first-child { color: var(--muted); }
-    .wk-spots-label .spots-count { font-weight: 700; }
-    .wk-spots-label .spots-count.urgent { color: var(--red); }
+    .spots-count { font-weight: 700; }
+    .spots-count.urgent { color: var(--red); }
     .wk-progress { height: 5px; background: #eee; border-radius: 99px; overflow: hidden; }
-    .wk-progress-fill { height: 100%; border-radius: 99px; transition: width .4s ease; }
+    .wk-progress-fill { height: 100%; border-radius: 99px; }
 
-    /* ── MODAL CARRITO RESERVA ── */
+    /* ── MODAL ── */
     .wk-modal-overlay {
       position: fixed; inset: 0; z-index: 1000;
       background: rgba(10,10,10,.65); backdrop-filter: blur(4px);
-      display: flex; align-items: center; justify-content: center;
-      padding: 16px;
+      display: flex; align-items: center; justify-content: center; padding: 16px;
       opacity: 0; pointer-events: none; transition: opacity .25s ease;
     }
     .wk-modal-overlay.open { opacity: 1; pointer-events: all; }
@@ -247,18 +262,13 @@
       background: #fff; border-radius: 18px; width: 100%; max-width: 500px;
       max-height: 92vh; overflow-y: auto;
       box-shadow: 0 28px 72px rgba(0,0,0,.28);
-      transform: translateY(24px) scale(.97);
-      transition: transform .28s ease;
+      transform: translateY(24px) scale(.97); transition: transform .28s ease;
     }
     .wk-modal-overlay.open .wk-modal { transform: translateY(0) scale(1); }
-
-    /* Modal header */
     .wk-modal-head {
-      background: var(--dark); padding: 22px 26px;
-      border-radius: 18px 18px 0 0;
+      background: var(--dark); padding: 22px 26px; border-radius: 18px 18px 0 0;
       display: flex; justify-content: space-between; align-items: flex-start;
     }
-    .wk-modal-head-info { flex: 1; }
     .wk-modal-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 5px; }
     .wk-modal-title { font-size: 19px; font-weight: 800; color: #fff; line-height: 1.2; }
     .wk-modal-close {
@@ -268,58 +278,41 @@
       transition: all .2s; flex-shrink: 0; margin-left: 14px; font-family: var(--font);
     }
     .wk-modal-close:hover { background: rgba(255,255,255,.2); color: #fff; }
-
-    /* Modal body */
     .wk-modal-body { padding: 26px; }
-
-    /* Info summary */
     .wk-modal-summary {
       background: var(--off); border-radius: 10px; padding: 16px 18px;
       margin-bottom: 22px; display: flex; flex-direction: column; gap: 7px;
     }
-    .wk-modal-summary .meta-r { font-size: 13px; }
-
-    /* Personas selector */
-    .wk-qty-section { margin-bottom: 22px; }
     .wk-qty-label { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
-    .wk-qty-ctrl { display: flex; align-items: center; gap: 14px; }
+    .wk-qty-ctrl { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
     .wk-qty-btn {
       width: 38px; height: 38px; border-radius: 8px;
       border: 1.5px solid var(--border); background: #fff;
-      font-size: 20px; font-weight: 300; color: var(--text);
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: var(--text); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
       transition: all .2s; font-family: var(--font);
     }
     .wk-qty-btn:hover { border-color: var(--red); color: var(--red); }
     .wk-qty-btn:disabled { opacity: .35; cursor: not-allowed; }
     .wk-qty-num { font-size: 22px; font-weight: 800; min-width: 32px; text-align: center; }
     .wk-qty-max { font-size: 12px; color: var(--muted); }
-
-    /* Price total */
     .wk-modal-total {
-      background: #fff7f7; border: 1px solid rgba(204,0,0,.15);
-      border-radius: 10px; padding: 14px 18px;
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 20px;
+      background: #fff7f7; border: 1px solid rgba(204,0,0,.15); border-radius: 10px;
+      padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
     }
     .wk-modal-total-label { font-size: 13px; color: var(--muted); }
     .wk-modal-total-price { font-size: 26px; font-weight: 900; color: var(--red); }
-
-    /* CTA ir a Shopify */
     .wk-modal-cta {
       display: flex; align-items: center; justify-content: center; gap: 10px;
-      width: 100%; padding: 15px 24px;
-      background: var(--red); color: #fff;
+      width: 100%; padding: 15px 24px; background: var(--red); color: #fff;
       font-family: var(--font); font-size: 15px; font-weight: 700;
-      border: none; border-radius: 8px; cursor: pointer;
-      transition: all .2s; text-decoration: none;
+      border: none; border-radius: 8px; cursor: pointer; transition: all .2s; text-decoration: none;
     }
-    .wk-modal-cta:hover { background: var(--red-dark); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(204,0,0,.35); }
+    .wk-modal-cta:hover { background: #a00; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(204,0,0,.35); }
     .wk-modal-note {
       display: flex; align-items: center; justify-content: center; gap: 6px;
       margin-top: 12px; font-size: 12px; color: #999; text-align: center;
     }
-    .wk-modal-note svg { flex-shrink: 0; }
 
     /* ── TESTIMONIOS ── */
     /* ── Testimonios estilo editorial ── */
@@ -528,46 +521,78 @@
     .leaflet-popup-pane { z-index: 700; }
     .leaflet-control { z-index: 800; }
     /* ── RESPONSIVE ── */
-    @media(max-width:1024px){
-      .nav-links{display:none}
-      .why-grid{grid-template-columns:repeat(2,1fr)} .why-num{font-size:40px}
-      .footer-main{grid-template-columns:1fr 1fr;gap:32px}
-    }
-    @media(max-width:768px){
-      .hero{height:480px}
-      .stats-inner{grid-template-columns:repeat(2,1fr)}
-      .about-grid{grid-template-columns:1fr;gap:36px}
-      .awards-grid{grid-template-columns:1fr}
-      .timeline::before{left:20px}
-      .tl-item{grid-template-columns:1fr;padding-left:50px}
-      .tl-item::before{left:20px}
-      .tl-card.r,.tl-card.l{grid-column:1;text-align:left}
-      .why-grid{grid-template-columns:1fr 1fr}
-      .cat-grid{grid-template-columns:1fr 1fr}
-      .wk-grid{grid-template-columns:1fr 1fr}
-      .tst-grid{grid-template-columns:1fr}
-      .stores-layout{grid-template-columns:1fr;height:auto}
-      #storeMap{height:300px;margin-top:16px}
-      .stores-mobile-tabs{display:flex;gap:0;background:#f5f5f5;border-radius:8px;padding:4px;margin-bottom:14px}
-      .mob-tab{flex:1;text-align:center;padding:8px;font-size:12px;font-weight:700;color:#999;border-radius:6px;cursor:pointer;transition:all .2s}
-      .mob-tab.active{background:#fff;color:var(--red);box-shadow:0 1px 4px rgba(0,0,0,.1)}
-      .store-list-panel.mob-hidden{display:none}
-      #storeMap.mob-hidden{display:none}
-      .choose-grid{grid-template-columns:1fr}
-      .footer-main{grid-template-columns:1fr}
-      .nav-ctas .btn-nv-o{display:none}
-      .sdp-btns{flex-direction:column}
-      .store-detail-panel{grid-template-columns:1fr}
-      .geo-bar{flex-direction:column;align-items:flex-start}
-    }
-    @media(max-width:480px){ .wk-grid{grid-template-columns:1fr!important} 
-      .cat-grid{grid-template-columns:1fr}
-      .why-grid{grid-template-columns:1fr}
-      .wk-photos{grid-template-columns:1fr}
-      .stats-inner{grid-template-columns:1fr 1fr}
-      .hero-arrow{display:none}
+
+
+    /* ════ ELIGE TU ÁREA — rediseño horizontal ════ */
+    .elige-section { background: var(--off); padding: 72px 24px; }
+    .elige-inner { max-width: 1180px; margin: 0 auto; }
+    .elige-header { text-align: center; margin-bottom: 44px; }
+
+    .elige-cards {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 3px;
+      align-items: stretch;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,.12);
     }
 
+    /* Card base */
+    .elige-card {
+      padding: 36px 36px 32px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+
+    /* B2C */
+    .elige-b2c { background: var(--red); }
+    .elige-card-icon { display: none; }
+    .elige-tag { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.7); }
+    .elige-card-title { font-size: 26px; font-weight: 900; color: #fff; margin: 0; }
+    .elige-card-desc { font-size: 14px; color: rgba(255,255,255,.75); line-height: 1.6; margin: 0; }
+    .elige-features-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .elige-feat {
+      font-size: 12px; font-weight: 600; color: rgba(255,255,255,.9);
+      background: rgba(255,255,255,.15); padding: 4px 10px; border-radius: 20px;
+    }
+    .elige-cta-b2c {
+      display: inline-flex; align-items: center;
+      background: #fff; color: var(--red);
+      font-size: 14px; font-weight: 700;
+      padding: 13px 24px; border-radius: 8px;
+      transition: all .2s; align-self: flex-start; margin-top: auto;
+      text-decoration: none;
+    }
+    .elige-cta-b2c:hover { background: rgba(255,255,255,.92); transform: translateY(-2px); }
+
+    /* B2B */
+    .elige-b2b { background: #191919; position: relative; overflow: hidden; border-left: 3px solid var(--red); }
+    .elige-b2b::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at top right, rgba(204,0,0,.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .elige-b2b-badge { display: none; }
+    .elige-feat-dark {
+      font-size: 12px; font-weight: 600; color: rgba(255,255,255,.7);
+      background: rgba(255,255,255,.08); padding: 4px 10px; border-radius: 20px;
+    }
+    .elige-b2b-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto; }
+    .elige-cta-b2b-primary {
+      flex: 1; text-align: center; background: var(--red); color: #fff;
+      font-size: 14px; font-weight: 800; padding: 13px 20px;
+      border-radius: 8px; transition: all .2s; text-decoration: none;
+      letter-spacing: .3px; min-width: 160px;
+    }
+    .elige-cta-b2b-primary:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(204,0,0,.4); }
+
+    /* Responsive */
+    @media(max-width:900px) {
+      .elige-cards { grid-template-columns: 1fr; } .elige-b2b { border-left: none; border-top: 3px solid var(--red); }
+      .elige-b2b-btns { flex-direction: column; }
+      .elige-card { padding: 28px 24px; }
+    }
     /* ── Cookie Banner ── */
     .cookie-banner {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
@@ -622,67 +647,229 @@
     .reveal-delay-3 { transition-delay: .3s; }
     .reveal-delay-4 { transition-delay: .4s; }
     /* ── Mobile optimizations ── */
-    @media(max-width:768px){
-      /* Touch targets mínimo 48px */
-      .btn-primary, .btn-nv-r, .btn-nv-o,
-      .btn-b2c, .btn-b2b, .slide-btn { min-height: 48px; display: flex; align-items: center; justify-content: center; }
+
+    /* ══════════════════════════════════════════════
+       RESPONSIVE — MOBILE FIRST
+       Breakpoints: 1024 · 900 · 768 · 600 · 480 · 375
+    ══════════════════════════════════════════════ */
+
+    /* ── 1024px — tablet horizontal ── */
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-main { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .why-section::before, .why-section::after { display: none; }
+      .why-inner { padding: 0 24px; }
+    }
+
+    /* ── 900px — elige section colapsa ── */
+    @media (max-width: 900px) {
+      .elige-cards { grid-template-columns: 1fr; gap: 0; }
+      .elige-b2b { border-left: none; border-top: 3px solid var(--red); }
+      .elige-b2b-btns { flex-direction: column; }
+      .elige-card { padding: 28px 24px; }
+    }
+
+    /* ── 768px — tablet vertical / mobile grande ── */
+    @media (max-width: 768px) {
+      /* Spacing */
+      .section { padding: 56px 16px; }
+      .why-section { padding: 56px 0; }
+
+      /* Topbar */
+      .topbar { font-size: 11px; padding: 7px 12px; }
+
+      /* Hero mobile — evitar overflow horizontal */
+      .hero, .hero-slides, .hero-slide { max-width: 100vw; }
+      /* Navbar */
+      .nav-inner { height: 56px; padding: 0 16px; }
+      .nav-logo img { height: 32px; }
+      .btn-nv-o { display: none; }
+      .btn-nv-r { font-size: 11px; padding: 8px 14px; }
+
       /* Hero */
-      .hero { height: 520px; }
-      .slide-title { font-size: clamp(28px,7vw,42px); }
-      .slide-desc { font-size: 15px; }
-      /* Stats 2x2 en mobile */
-      .stats-inner { grid-template-columns: repeat(2,1fr); gap: 12px; padding: 0 4px; }
+      .hero { height: 480px; }
+      .slide-title { font-size: clamp(26px, 6vw, 40px); }
+      .slide-desc { font-size: 14px; max-width: 90%; }
+      .slide-btn { font-size: 13px; padding: 12px 22px; }
+      .slide-content { padding: 0 20px; }
+      .hero-slide:nth-child(2) .slide-title,
+      .hero-slide:nth-child(3) .slide-title { font-size: clamp(22px, 5.5vw, 34px); max-width: 100%; }
+      .hero-slide:nth-child(2) .slide-content,
+      .hero-slide:nth-child(3) .slide-content { padding-left: 20px; }
+      .hero-arrow { width: 38px; height: 38px; font-size: 18px; }
+      .hero-counter { display: none; }
+
+      /* Stats bar */
+      .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 8px; }
       .stat-num { font-size: 32px; }
-      /* About */
-      .about-grid { grid-template-columns: 1fr; }
-      /* Awards */
-      .awards-grid { grid-template-columns: 1fr; gap: 14px; }
-      /* Why */
-      .why-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-      .why-num { font-size: 36px; }
-      /* Cats */
+      .stat-label { font-size: 10px; }
+      .stats-bar { padding: 22px 16px; }
+
+      /* Touch targets */
+      .btn-primary, .slide-btn, .elige-cta-b2c,
+      .elige-cta-b2b-primary, .pill { min-height: 48px; }
+
+      /* Productos / categorías */
       .cat-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-      /* Workshops */
-      .wk-grid { grid-template-columns: 1fr 1fr !important; gap: 14px; }
-      .wk-photos { grid-template-columns: 1fr; gap: 10px; }
+      .cat-name { font-size: 15px; }
+
+      /* Elige tu canal */
+      .elige-section { padding: 48px 16px; }
+      .elige-header { margin-bottom: 28px; }
+      .elige-cards { border-radius: 12px; }
+
+      /* Talleres */
+      .wk-photos { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .wk-photos .wk-photo:last-child { display: none; }
+      .wk-grid { grid-template-columns: 1fr 1fr !important; gap: 12px; }
       .filter-pills { gap: 6px; }
       .pill { padding: 8px 16px; font-size: 13px; }
+      .wk-title { font-size: 16px; }
+      .wk-price { font-size: 20px; }
+
       /* Testimonios */
-      .tst-grid { grid-template-columns: 1fr; gap: 14px; }
-      /* Stores */
-      .stores-layout { grid-template-columns: 1fr; }
-      #storeMap { height: 280px !important; min-height: 280px !important; }
-      .store-list-panel { max-height: 300px !important; }
-      /* Choose */
-      .choose-grid { grid-template-columns: 1fr; gap: 16px; }
-      .choose-card { padding: 32px 24px; }
+      .tst-grid { grid-template-columns: 1fr; gap: 12px; }
+      .tst-card { padding: 20px 18px; }
+
+      /* Tiendas */
+      .stores-layout { grid-template-columns: 1fr; height: auto; }
+      #storeMap { height: 280px !important; min-height: 280px !important; margin-top: 12px; }
+      .store-list-panel { max-height: 240px !important; }
+      .stores-mobile-tabs { display: flex; gap: 0; background: #f5f5f5; border-radius: 8px; padding: 4px; margin-bottom: 14px; }
+      .mob-tab { flex: 1; text-align: center; padding: 9px; font-size: 12px; font-weight: 700; color: #999; border-radius: 6px; cursor: pointer; transition: all .2s; }
+      .mob-tab.active { background: #fff; color: var(--red); box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+      .store-list-panel.mob-hidden { display: none; }
+      #storeMap.mob-hidden { display: none; }
+      .city-filters { gap: 5px; }
+      .cpill { padding: 6px 12px; font-size: 11px; }
+      .store-detail-panel { grid-template-columns: 1fr; gap: 12px; }
+      .sdp-btns { flex-direction: row; }
+
+      /* Historia / About */
+      .about-grid { grid-template-columns: 1fr; gap: 28px; }
+      .about-img { display: none; } /* En mobile se puede ocultar la imagen */
+      .awards-grid { grid-template-columns: 1fr; gap: 10px; }
+      .award-card { padding: 20px 18px; min-height: 120px; }
+      .innov-box { padding: 24px 20px; font-size: 14px; }
+
+      /* Timeline */
+      .timeline::before { left: 16px; }
+      .tl-item { grid-template-columns: 1fr; padding-left: 44px; gap: 0; }
+      .tl-item::before { left: 16px; top: 18px; width: 12px; height: 12px; }
+      .tl-card.r, .tl-card.l { grid-column: 1; text-align: left; }
+      .tl-year { font-size: 22px; }
+
+      /* ¿Por qué Tescoma? */
+      .why-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .why-card { padding: 20px 16px; }
+      .why-num { font-size: 32px; }
+      .why-ct { font-size: 14px; }
+      .why-cd { font-size: 12px; }
+      .why-title { font-size: clamp(26px, 5vw, 38px); }
+      .why-inner { padding: 0 16px; }
+
       /* Footer */
-      .footer-main { grid-template-columns: 1fr 1fr; gap: 28px; padding: 40px 20px 32px; }
-      /* Section padding */
-      .section { padding: 60px 16px; }
-      .why-section { padding: 60px 16px; }
+      .footer-main { grid-template-columns: 1fr 1fr; gap: 24px; padding: 36px 16px 28px; }
+      .footer-trust { padding: 16px; }
+      .footer-trust-inner { gap: 8px; }
+      .ti { font-size: 12px; padding: 8px 12px; }
+      .footer-bottom { flex-direction: column; gap: 8px; padding: 16px; }
+      .footer-legal { gap: 14px; }
+
       /* Cookie banner */
-      .cookie-banner { flex-direction: column; align-items: flex-start; padding: 16px; }
-      .cookie-btns { width: 100%; }
+      .cookie-banner { flex-direction: column; align-items: flex-start; padding: 14px 16px; gap: 12px; }
+      .cookie-btns { width: 100%; display: flex; gap: 8px; }
       .cookie-accept, .cookie-reject { flex: 1; text-align: center; }
-      /* BTT no choca con cookie */
-      .btt { bottom: 24px; right: 16px; width: 42px; height: 42px; }
+
+      /* BTT */
+      .btt { bottom: 20px; right: 14px; width: 42px; height: 42px; font-size: 17px; }
+
+      /* Sección títulos */
+      .sec-title { font-size: clamp(24px, 5vw, 36px); }
+      .tl-heading { font-size: clamp(26px, 5.5vw, 38px); }
+      .why-sub { white-space: normal !important; font-size: 14px; }
     }
-    @media(max-width:480px){
-      .wk-grid { grid-template-columns: 1fr !important; }
-      .why-grid { grid-template-columns: 1fr !important; }
-      .cat-grid { grid-template-columns: 1fr !important; }
-      .tst-grid { grid-template-columns: 1fr !important; }
-      .awards-grid { grid-template-columns: 1fr !important; }
-      .footer-main { grid-template-columns: 1fr !important; }
-      .hero { height: 480px; }
-      .slide-content { padding: 0 16px; }
-      .hero-arrow { display: none; }
+
+    /* ── 600px — mobile estándar ── */
+    @media (max-width: 600px) {
+      /* Hero más bajo */
+      .hero { height: 420px; }
+      .slide-eyebrow { display: none; }
+
+      /* Stats 2x2 */
       .stats-inner { grid-template-columns: 1fr 1fr; }
+
+      /* Categorías — 1 columna */
+      .cat-grid { grid-template-columns: 1fr; gap: 6px; }
+      .cat-card { aspect-ratio: 16/7; }
+      .cat-name { font-size: 18px; }
+
+      /* Talleres 1 col */
+      .wk-grid { grid-template-columns: 1fr !important; }
+      .wk-photos { grid-template-columns: 1fr; }
+      .wk-photos .wk-photo:last-child { display: block; }
+      .wk-photos .wk-photo:nth-child(2), .wk-photos .wk-photo:nth-child(3) { display: none; }
+
+      /* Why 1 col */
+      .why-grid { grid-template-columns: 1fr 1fr; }
+
+      /* Footer 1 col */
+      .footer-main { grid-template-columns: 1fr; }
+
+      /* Elige */
+      .elige-card-title { font-size: 22px; }
+      .elige-features-row { gap: 6px; }
+      .elige-feat, .elige-feat-dark { font-size: 11px; padding: 3px 8px; }
+    }
+
+    /* ── 480px — mobile pequeño ── */
+    @media (max-width: 480px) {
+      .section { padding: 44px 14px; }
+      .hero { height: 380px; }
+      .slide-title { font-size: clamp(22px, 7vw, 32px); }
+      .hero-arrow { display: none; }
+      .hero-dots { bottom: 16px; }
+
+      .stats-bar { padding: 18px 12px; }
+      .stat-num { font-size: 28px; }
+      .stat-label { font-size: 9px; letter-spacing: 1px; }
+
+      .nav-logo img { height: 28px; }
+      .nav-inner { height: 52px; padding: 0 12px; }
+
+      .why-grid { grid-template-columns: 1fr; }
+      .why-card { padding: 16px 14px; }
+
+      .awards-grid { grid-template-columns: 1fr; }
+      .award-card { min-height: 100px; }
+
+      .tst-grid { grid-template-columns: 1fr; }
+
+      .footer-main { grid-template-columns: 1fr; gap: 20px; padding: 28px 14px; }
+
+      .choose-grid { grid-template-columns: 1fr; }
       .choose-card { padding: 28px 20px; }
-      .ch-title { font-size: 24px; }
-      .nav-ctas .btn-nv-o { display: none; }
-      .tl-item { padding-left: 36px; }
+      .ch-title { font-size: 22px; }
+
+      .elige-card { padding: 22px 18px; }
+
+      .innov-box { padding: 20px 16px; font-size: 13px; }
+
+      .cookie-banner { padding: 12px 14px; }
+    }
+
+    /* ── 375px — iPhone SE / mobile muy pequeño ── */
+    @media (max-width: 375px) {
+      .topbar { font-size: 10px; letter-spacing: 0; }
+      .hero { height: 340px; }
+      .slide-title { font-size: 20px; }
+      .slide-desc { font-size: 13px; }
+      .slide-btn { font-size: 12px; padding: 10px 18px; }
+      .stat-num { font-size: 24px; }
+      .sec-title { font-size: 22px; }
+      .btn-primary { font-size: 13px; padding: 12px 20px; }
+      .nav-logo img { height: 26px; }
     }
   </style>
 </head>
@@ -707,7 +894,7 @@
       </div>
       <div class="nav-ctas">
         <a href="https://www.tescomaonline.es/" target="_blank" rel="noopener" class="btn-nv-r">TIENDA ONLINE</a>
-        <a href="https://tescoma-web.ntv.es/login" target="_blank" rel="noopener" class="btn-nv-o">PORTAL PROFESIONAL</a>
+        <a href="https://tescoma-web.github.io/ntv123/" target="_blank" rel="noopener" class="btn-nv-o">PORTAL PROFESIONAL</a>
       </div>
     </div>
   </nav>
@@ -757,7 +944,7 @@
         <p class="slide-eyebrow">Canal Profesional</p>
         <h1 class="slide-title">Portal Profesional<br>para distribuidores</h1>
         <p class="slide-desc">Accede a precios exclusivos, catálogo profesional completo y gestión de pedidos en tiempo real.</p>
-        <a href="https://tescoma-web.ntv.es/login" target="_blank" rel="noopener" class="slide-btn">Acceder al portal →</a>
+        <a href="https://tescoma-web.github.io/ntv123/" target="_blank" rel="noopener" class="slide-btn">Acceder al portal →</a>
       </div>
     </div>
 
@@ -790,6 +977,250 @@
 </div>
 
 <!-- QUIÉNES SOMOS -->
+<section class="section" id="productos" style="background:#fff">
+  <div class="si">
+    <p class="overline c">Nuestros Productos</p>
+    <h2 class="sec-title c reveal">Categorías <span class="ac">Preferidas</span></h2>
+    <p class="sec-sub c">Descubre nuestra amplia gama de utensilios de cocina</p>
+    <div class="cat-grid">
+      <a href="https://www.tescomaonline.es/collections/novedad" target="_blank" rel="noopener" class="cat-card" aria-label="Novedades Tescoma">
+        <img src="https://www.tescomaonline.es/cdn/shop/files/FOTO_CATEGORIA_NOVEDADES_Mesa_de_trabajo_1.jpg?v=1763146672&width=800" alt="Novedades Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform .4s ease"/>
+        <div class="cat-ov"><span class="cat-name">Novedades</span><span class="cat-link">Ver productos →</span></div>
+      </a>
+      <a href="https://www.tescomaonline.es/collections/cocina-saludable" target="_blank" rel="noopener" class="cat-card" aria-label="Cocina saludable Tescoma">
+        <img src="https://www.tescomaonline.es/cdn/shop/files/FOTO_CATEGORIA_COCINA_SALUDABLE_Mesa_de_trabajo_1_c88ac8e8-e15c-43db-9aea-c892dc1ede00.jpg?v=1763146673&width=800" alt="Cocina saludable Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform .4s ease"/>
+        <div class="cat-ov"><span class="cat-name">Cocina saludable</span><span class="cat-link">Ver productos →</span></div>
+      </a>
+      <a href="https://www.tescomaonline.es/collections/ahorra-espacio" target="_blank" rel="noopener" class="cat-card" aria-label="Ahorra espacio Tescoma">
+        <img src="https://www.tescomaonline.es/cdn/shop/files/FOTO_CATEGORIA_AHORRA_ESPACIO_Mesa_de_trabajo_1_09fbedd8-9e8d-4143-acb1-d2d9b8768a80.jpg?v=1763146672&width=800" alt="Ahorra espacio Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform .4s ease"/>
+        <div class="cat-ov"><span class="cat-name">Ahorra espacio</span><span class="cat-link">Ver productos →</span></div>
+      </a>
+      <a href="https://www.tescomaonline.es/collections/reposteria" target="_blank" rel="noopener" class="cat-card" aria-label="Repostería Tescoma">
+        <img src="https://www.tescomaonline.es/cdn/shop/files/FOTO_CATEGORIA_REPOSTERIA_Mesa_de_trabajo_1_53d86072-c00a-41d1-90c8-ce2a1bcd8aea.jpg?v=1763146672&width=800" alt="Repostería Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform .4s ease"/>
+        <div class="cat-ov"><span class="cat-name">Repostería</span><span class="cat-link">Ver productos →</span></div>
+      </a>
+      <a href="https://www.tescomaonline.es/collections/desayuno-y-bruch" target="_blank" rel="noopener" class="cat-card" aria-label="Brunch Tescoma">
+        <img src="https://www.tescomaonline.es/cdn/shop/files/FOTO_CATEGORIA_BRUNCH_Mesa_de_trabajo_1_7fd94592-29eb-4782-8f89-818cf3737d9b.jpg?v=1763146671&width=800" alt="Brunch Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform .4s ease"/>
+        <div class="cat-ov"><span class="cat-name">Brunch</span><span class="cat-link">Ver productos →</span></div>
+      </a>
+      <a href="https://www.tescomaonline.es/collections/outlet" target="_blank" rel="noopener" class="cat-card" aria-label="Outlet Tescoma">
+        <img src="https://www.tescomaonline.es/cdn/shop/files/FOTO_CATEGORIA_OUTLET_Mesa_de_trabajo_1.jpg?v=1763146673&width=800" alt="Outlet Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform .4s ease"/>
+        <div class="cat-ov"><span class="cat-name">Outlet</span><span class="cat-link">Ver productos →</span></div>
+      </a>
+    </div>
+    <div style="text-align:center;margin-top:36px">
+      <a href="https://www.tescomaonline.es/collections/all" target="_blank" rel="noopener" class="btn-primary">Ver todas las categorías →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TALLERES -->
+<section class="elige-section" id="acceso" aria-labelledby="elige-title">
+  <div class="elige-inner">
+
+    <!-- Encabezado -->
+    <div class="elige-header">
+      <p class="overline c">Cómo podemos ayudarte</p>
+      <h2 class="sec-title c" id="elige-title">Elige tu <span class="ac">canal</span></h2>
+      <p class="sec-sub c" style="margin-bottom:0">Tanto si cocinas en casa como si gestionas un negocio de hostelería, tenemos el acceso adecuado para ti.</p>
+    </div>
+
+    <!-- Cards horizontales -->
+    <div class="elige-cards">
+
+      <!-- B2C -->
+      <div class="elige-card elige-b2c">
+        <div class="elige-card-body">
+          <div class="elige-tag">CONSUMIDOR · B2C</div>
+          <h3 class="elige-card-title">Tienda Online</h3>
+          <p class="elige-card-desc">Más de 2500 productos con envío a toda España en 24-48h. Novedades, ofertas y outlet.</p>
+          <div class="elige-features-row">
+            <span class="elige-feat">✓ 2500+ productos</span>
+            <span class="elige-feat">✓ Envío 24-48h</span>
+            <span class="elige-feat">✓ Outlet online</span>
+          </div>
+        </div>
+        <a href="https://www.tescomaonline.es/" target="_blank" rel="noopener" class="elige-cta-b2c">
+          Ir a la tienda →
+        </a>
+      </div>
+
+      <!-- B2B — protagonista -->
+      <div class="elige-card elige-b2b">
+        <div class="elige-card-body">
+          <div class="elige-tag" style="color:rgba(255,255,255,.5)">DISTRIBUIDORES · B2B</div>
+          <h3 class="elige-card-title" style="color:#fff">Portal Profesional</h3>
+          <p class="elige-card-desc" style="color:rgba(255,255,255,.7)">Plataforma exclusiva para distribuidores y profesionales de la hostelería.<br>Gestiona pedidos, facturas y catálogo completo 24/7.</p>
+          <div class="elige-features-row" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+            <span class="elige-feat elige-feat-dark">✓ Catálogo 24/7</span>
+            <span class="elige-feat elige-feat-dark">✓ Tarifas profesionales</span>
+            <span class="elige-feat elige-feat-dark">✓ Carga desde Excel</span>
+            <span class="elige-feat elige-feat-dark">✓ Descarga facturas</span>
+            <span class="elige-feat elige-feat-dark">✓ Pedido rápido</span>
+            <span class="elige-feat elige-feat-dark">✓ Historial completo</span>
+          </div>
+        </div>
+        <div class="elige-b2b-btns">
+          <a href="https://tescoma-web.github.io/ntv123/" target="_blank" rel="noopener" class="elige-cta-b2b-primary">
+            Acceder al portal →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER --><section class="section" id="talleres" style="background:var(--off)">
+  <div class="si">
+    <p class="overline c">Aprende con nosotros</p>
+    <h2 class="sec-title c reveal">Talleres y <span class="ac">Experiencias</span></h2>
+    <p class="sec-sub c">Aprende, cocina y disfruta con nuestros expertos</p>
+    <div class="wk-photos">
+      <div class="wk-photo"><img src="https://www.tescomaonline.es/cdn/shop/articles/Olla_electrica_PREsident_0df0033f-bb28-4e4f-9b3c-4680bffe4a37.jpg?v=1768914212&width=800" loading="lazy" alt="Taller de cocina Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:10px"/></div>
+      <div class="wk-photo"><img src="https://www.tescomaonline.es/cdn/shop/articles/sifon_nata_montada_8f26b8be-f71a-4032-95cb-47c73ba19d00.jpg?v=1768490156&width=800" loading="lazy" alt="Taller repostería Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:10px"/></div>
+      <div class="wk-photo"><img src="https://www.tescomaonline.es/cdn/shop/articles/croquetas_de_calabacin_y_queso.jpg?v=1763114606&width=800" loading="lazy" alt="Masterclass pan artesanal Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:10px"/></div>
+    </div>
+    <div class="filter-pills">
+      <button class="pill active" onclick="filterWk('all',this)">Todos los talleres</button>
+      <button class="pill inactive" onclick="filterWk('cocina',this)">Cocina</button>
+    </div>
+    <div class="wk-grid" id="wkGrid">
+        <article class="wk-card" data-cat="cocina">
+          <span class="wk-badge">Cocina</span>
+          <h3 class="wk-title">Taller Práctico de Pasta Fresca</h3>
+          <div class="wk-meta">
+            <div class="meta-r"><span class="mi">📅</span>Mié. 29 de Abril · 2026</div>
+            <div class="meta-r"><span class="mi">🕐</span>17:30 - 18:30</div>
+            <div class="meta-r"><span class="mi">⏱️</span>Duración: 60 min aprox.</div>
+            <div class="meta-r"><span class="mi">👨‍🍳</span>Sandro Arsena</div>
+            <div class="meta-r"><span class="mi">📍</span><a href="https://maps.app.goo.gl/weyVPJhVGFyLrc5WA" target="_blank" rel="noopener" style="color:var(--red);font-weight:600">Ver ubicación →</a></div>
+          </div>
+          <div class="wk-price">20€ <span style="font-size:13px;color:var(--red);font-weight:600">— Vale dto. 5€</span></div>
+          <p class="wk-desc">Una tarde rodeada de harina y mucha tradición italiana. Aprende a elaborar pasta fresca con tus propias manos. ¡Conviértete en todo un expert@ de la pasta fresca!</p>
+          <div class="wk-spots-bar">
+            <div class="wk-spots-label"><span>Disponibilidad</span><span class="spots-count urgent">⚡ Solo quedan 4 plazas</span></div>
+            <div class="wk-progress"><div class="wk-progress-fill" style="width:40%;background:#CC0000"></div></div>
+          </div>
+          <button class="wk-reserve-btn" onclick="openWkModal({title:'Taller Práctico de Pasta Fresca',date:'Mié. 29 de Abril · 2026',time:'17:30 – 18:30h',duration:'60 min aprox.',instructor:'Sandro Arsena',location:'Ver ubicación →',mapUrl:'https://maps.app.goo.gl/weyVPJhVGFyLrc5WA',price:20,spots:4,shopifyUrl:'https://www.tescomaonline.es/products/cortador-rallador-multifuncion-handy',variantId:56345976570239})">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+            Reservar plaza
+          </button>
+        </article>
+          <span class="wk-badge" style="background:#e91e8c">Especial Mamá</span>
+          <h3 class="wk-title">Taller Infantil — Día de la Madre</h3>
+          <div class="wk-meta">
+            <div class="meta-r"><span class="mi">📅</span>Sáb. 2 de Mayo · 2026</div>
+            <div class="meta-r"><span class="mi">🕐</span>11:30 - 12:30</div>
+            <div class="meta-r"><span class="mi">⏱️</span>Duración: 2 horas aprox.</div>
+            <div class="meta-r"><span class="mi">👨‍🍳</span>Esther Candela García</div>
+            <div class="meta-r"><span class="mi">📍</span><a href="https://maps.app.goo.gl/weyVPJhVGFyLrc5WA" target="_blank" rel="noopener" style="color:var(--red);font-weight:600">C/ Hospital, 26 — Elche →</a></div>
+          </div>
+          <div class="wk-price">15€ <span style="font-size:13px;color:var(--red);font-weight:600">— Vale dto. 5€</span></div>
+          <p class="wk-desc">¡Una mañana elaborando recetas deliciosas junto a mamá! Un plan que no vas a querer rechazar. ¡Plazas limitadas!</p>
+          <div class="wk-spots-bar">
+            <div class="wk-spots-label"><span>Disponibilidad</span><span class="spots-count urgent">⚡ Solo quedan 3 plazas</span></div>
+            <div class="wk-progress"><div class="wk-progress-fill" style="width:25%;background:#CC0000"></div></div>
+          </div>
+          <button class="wk-reserve-btn" onclick="openWkModal({title:'Taller Infantil — Día de la Madre',date:'Sáb. 2 de Mayo · 2026',time:'11:30 – 12:30h',duration:'2 horas aprox.',instructor:'Esther Candela García',location:'C/ Hospital, 26 — Elche →',mapUrl:'https://maps.app.goo.gl/weyVPJhVGFyLrc5WA',price:15,spots:3,shopifyUrl:'https://www.tescomaonline.es/products/cortador-rallador-multifuncion-handy',variantId:56345976570239})">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+            Reservar plaza
+          </button>
+        </article>
+          <div class="wk-meta">
+            <div class="meta-r"><span class="mi">📅</span>Jue. 7 de Mayo · 2026</div>
+            <div class="meta-r"><span class="mi">🕐</span>18:30 - 19:30</div>
+            <div class="meta-r"><span class="mi">⏱️</span>Duración: 60 min aprox.</div>
+            <div class="meta-r"><span class="mi">👨‍🍳</span>Chef Manolito</div>
+            <div class="meta-r"><span class="mi">📍</span><a href="https://maps.app.goo.gl/6h6JEPSBx7kCAGfG9" target="_blank" rel="noopener" style="color:var(--red);font-weight:600">Ver ubicación →</a></div>
+          </div>
+          <div class="wk-price">10€ <span style="font-size:13px;color:var(--red);font-weight:600">— Vale dto. 5€</span></div>
+          <p class="wk-desc">Bocados sorprendentes para tus próximas comidas con amigos. Coge papel y boli, ¡no te pierdas nada! ¡Plazas limitadas!</p>
+          <div class="wk-spots-bar">
+            <div class="wk-spots-label"><span>Disponibilidad</span><span class="spots-count" style="color:#16a34a">8 plazas disponibles</span></div>
+            <div class="wk-progress"><div class="wk-progress-fill" style="width:80%;background:#16a34a"></div></div>
+          </div>
+          <button class="wk-reserve-btn" onclick="openWkModal({title:'Taller de Recetas de Picoteo',date:'Jue. 7 de Mayo · 2026',time:'18:30 – 19:30h',duration:'60 min aprox.',instructor:'Chef Manolito',location:'Ver ubicación →',mapUrl:'https://maps.app.goo.gl/6h6JEPSBx7kCAGfG9',price:10,spots:8,shopifyUrl:'https://www.tescomaonline.es/products/cortador-rallador-multifuncion-handy',variantId:56345976570239})">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+            Reservar plaza
+          </button>
+        </article>
+          <div class="wk-meta">
+            <div class="meta-r"><span class="mi">📅</span>Mar. 26 de Mayo · 2026</div>
+            <div class="meta-r"><span class="mi">🕐</span>18:30 - 19:30</div>
+            <div class="meta-r"><span class="mi">⏱️</span>Duración: 60 min aprox.</div>
+            <div class="meta-r"><span class="mi">👨‍🍳</span>Chef Manolito</div>
+            <div class="meta-r"><span class="mi">📍</span><a href="https://maps.app.goo.gl/PU43Mh1YPWdLFoqe8" target="_blank" rel="noopener" style="color:var(--red);font-weight:600">Ver ubicación →</a></div>
+          </div>
+          <div class="wk-price">10€ <span style="font-size:13px;color:var(--red);font-weight:600">— Vale dto. 5€</span></div>
+          <p class="wk-desc">¡Repetimos! Aprende los secretos del mejor arroz. Te convertirás en el/la arrocer@ favorit@ de tu grupo. ¡GARANTIZADO! ¡Plazas limitadas!</p>
+          <div class="wk-spots-bar">
+            <div class="wk-spots-label"><span>Disponibilidad</span><span class="spots-count" style="color:#16a34a">10 plazas disponibles</span></div>
+            <div class="wk-progress"><div class="wk-progress-fill" style="width:100%;background:#16a34a"></div></div>
+          </div>
+          <button class="wk-reserve-btn" onclick="openWkModal({title:'Taller de Arroces del Mundo (II)',date:'Mar. 26 de Mayo · 2026',time:'18:30 – 19:30h',duration:'60 min aprox.',instructor:'Chef Manolito',location:'Ver ubicación →',mapUrl:'https://maps.app.goo.gl/PU43Mh1YPWdLFoqe8',price:10,spots:10,shopifyUrl:'https://www.tescomaonline.es/products/cortador-rallador-multifuncion-handy',variantId:56345976570239})">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+            Reservar plaza
+          </button>
+        </article>
+      </div>
+    <div style="text-align:center;margin-top:36px">
+      <a href="https://www.tescomaonline.es/pages/talleres-de-cocina-tiendas-tescoma" target="_blank" rel="noopener" class="btn-primary">Ver todos los talleres →</a>
+    </div>
+  </div>
+</section>
+
+<section class="section stores-section" id="tiendas">
+  <div class="si">
+    <p class="overline c">Dónde Encontrarnos</p>
+    <h2 class="sec-title c reveal">Nuestras <span class="ac">Tiendas</span></h2>
+    <p class="sec-sub c">9 tiendas en toda España · Encuentra la más cercana a ti</p>
+
+    <!-- City filters -->
+    <div class="city-filters" id="cityFilters">
+      <button class="cpill active" onclick="filterCity('all',this)">Todas (9)</button>
+      <button class="cpill" onclick="filterCity('Madrid',this)">Madrid (3)</button>
+      <button class="cpill" onclick="filterCity('Alicante',this)">Alicante (1)</button>
+      <button class="cpill" onclick="filterCity('Elche',this)">Elche (1)</button>
+      <button class="cpill" onclick="filterCity('Murcia',this)">Murcia (1)</button>
+      <button class="cpill" onclick="filterCity('Zaragoza',this)">Zaragoza (1)</button>
+      <button class="cpill" onclick="filterCity('Sevilla',this)">Sevilla (1)</button>
+      <button class="cpill" onclick="filterCity('Santander',this)">Santander (1)</button>
+    </div>
+
+    <!-- Mobile tabs -->
+    <div class="stores-mobile-tabs">
+      <div class="mob-tab active" onclick="mobTab('list',this)">📋 Lista</div>
+      <div class="mob-tab" onclick="mobTab('map',this)">🗺️ Mapa</div>
+    </div>
+
+    <!-- Main layout: list + map -->
+    <div class="stores-layout">
+      <div class="store-list-panel" id="storeListPanel"></div>
+      <div id="storeMap"></div>
+    </div>
+
+    <!-- Detail panel -->
+    <div class="store-detail-panel" id="storeDetailPanel">
+      <div>
+        <div class="sdp-city" id="sdpCity"></div>
+        <div class="sdp-addr" id="sdpAddr"></div>
+        <div class="sdp-info" id="sdpInfo"></div>
+      </div>
+      <div class="sdp-btns">
+        <a href="#" id="sdpDirBtn" target="_blank" rel="noopener" class="sdp-btn-r">📍 Cómo llegar</a>
+        <a href="#" id="sdpCallBtn" class="sdp-btn-o">📞 Llamar</a>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:32px;padding-top:28px;border-top:1px solid var(--border)">
+      <p style="color:var(--muted);margin-bottom:16px;font-size:15px">¿No encuentras una tienda cerca? Compra en nuestra tienda online</p>
+      <a href="https://www.tescomaonline.es/" target="_blank" rel="noopener" class="btn-primary">Comprar Online →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ELIGE TU ÁREA -->
 <section class="section" id="historia" style="background:#fff">
   <div class="si">
     <div class="about-grid">
@@ -886,162 +1317,6 @@
 </section>
 
 <!-- CATEGORÍAS -->
-<section class="section" id="productos" style="background:#fff">
-  <div class="si">
-    <p class="overline c">Nuestros Productos</p>
-    <h2 class="sec-title c reveal">Categorías <span class="ac">Preferidas</span></h2>
-    <p class="sec-sub c">Descubre nuestra amplia gama de utensilios de cocina</p>
-    <div class="cat-grid">
-      <a href="https://www.tescomaonline.es/collections/novedad" target="_blank" rel="noopener" class="cat-card" aria-label="Novedades Tescoma">
-        <img src="https://www.tescomaonline.es/cdn/shop/files/FOTO_CATEGORIA_NOVEDADES_Mesa_de_trabajo_1.jpg?v=1763146672&width=800" alt="Novedades Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform .4s ease"/>
-        <div class="cat-ov"><span class="cat-name">Novedades</span><span class="cat-link">Ver productos →</span></div>
-      </a>
-      <a href="https://www.tescomaonline.es/collections/outlet" target="_blank" rel="noopener" class="cat-card" aria-label="Outlet Tescoma">
-        <img src="https://www.tescomaonline.es/cdn/shop/files/FOTO_CATEGORIA_OUTLET_Mesa_de_trabajo_1.jpg?v=1763146673&width=800" alt="Outlet Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform .4s ease"/>
-        <div class="cat-ov"><span class="cat-name">Outlet</span><span class="cat-link">Ver productos →</span></div>
-      </a>
-      <a href="https://www.tescomaonline.es/collections/cocina-saludable" target="_blank" rel="noopener" class="cat-card" aria-label="Cocina saludable Tescoma">
-        <img src="https://www.tescomaonline.es/cdn/shop/files/FOTO_CATEGORIA_COCINA_SALUDABLE_Mesa_de_trabajo_1_c88ac8e8-e15c-43db-9aea-c892dc1ede00.jpg?v=1763146673&width=800" alt="Cocina saludable Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform .4s ease"/>
-        <div class="cat-ov"><span class="cat-name">Cocina saludable</span><span class="cat-link">Ver productos →</span></div>
-      </a>
-      <a href="https://www.tescomaonline.es/collections/ahorra-espacio" target="_blank" rel="noopener" class="cat-card" aria-label="Ahorra espacio Tescoma">
-        <img src="https://www.tescomaonline.es/cdn/shop/files/FOTO_CATEGORIA_AHORRA_ESPACIO_Mesa_de_trabajo_1_09fbedd8-9e8d-4143-acb1-d2d9b8768a80.jpg?v=1763146672&width=800" alt="Ahorra espacio Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform .4s ease"/>
-        <div class="cat-ov"><span class="cat-name">Ahorra espacio</span><span class="cat-link">Ver productos →</span></div>
-      </a>
-      <a href="https://www.tescomaonline.es/collections/reposteria" target="_blank" rel="noopener" class="cat-card" aria-label="Repostería Tescoma">
-        <img src="https://www.tescomaonline.es/cdn/shop/files/FOTO_CATEGORIA_REPOSTERIA_Mesa_de_trabajo_1_53d86072-c00a-41d1-90c8-ce2a1bcd8aea.jpg?v=1763146672&width=800" alt="Repostería Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform .4s ease"/>
-        <div class="cat-ov"><span class="cat-name">Repostería</span><span class="cat-link">Ver productos →</span></div>
-      </a>
-      <a href="https://www.tescomaonline.es/collections/desayuno-y-bruch" target="_blank" rel="noopener" class="cat-card" aria-label="Brunch Tescoma">
-        <img src="https://www.tescomaonline.es/cdn/shop/files/FOTO_CATEGORIA_BRUNCH_Mesa_de_trabajo_1_7fd94592-29eb-4782-8f89-818cf3737d9b.jpg?v=1763146671&width=800" alt="Brunch Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform .4s ease"/>
-        <div class="cat-ov"><span class="cat-name">Brunch</span><span class="cat-link">Ver productos →</span></div>
-      </a>
-    </div>
-    <div style="text-align:center;margin-top:36px">
-      <a href="https://www.tescomaonline.es/collections/all" target="_blank" rel="noopener" class="btn-primary">Ver todas las categorías →</a>
-    </div>
-  </div>
-</section>
-
-<!-- TALLERES -->
-<section class="section" id="talleres" style="background:var(--off)">
-  <div class="si">
-    <p class="overline c">Aprende con nosotros</p>
-    <h2 class="sec-title c reveal">Talleres y <span class="ac">Experiencias</span></h2>
-    <p class="sec-sub c">Aprende, cocina y disfruta con nuestros expertos</p>
-    <div class="wk-photos">
-      <div class="wk-photo"><img src="https://www.tescomaonline.es/cdn/shop/articles/Olla_electrica_PREsident_0df0033f-bb28-4e4f-9b3c-4680bffe4a37.jpg?v=1768914212&width=800" loading="lazy" alt="Taller de cocina Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:10px"/></div>
-      <div class="wk-photo"><img src="https://www.tescomaonline.es/cdn/shop/articles/sifon_nata_montada_8f26b8be-f71a-4032-95cb-47c73ba19d00.jpg?v=1768490156&width=800" loading="lazy" alt="Taller repostería Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:10px"/></div>
-      <div class="wk-photo"><img src="https://www.tescomaonline.es/cdn/shop/articles/croquetas_de_calabacin_y_queso.jpg?v=1763114606&width=800" loading="lazy" alt="Masterclass pan artesanal Tescoma" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:10px"/></div>
-    </div>
-    <div class="filter-pills">
-      <button class="pill active" onclick="filterWk('all',this)">Todos los talleres</button>
-      <button class="pill inactive" onclick="filterWk('cocina',this)">Cocina</button>
-    </div>
-    <div class="wk-grid" id="wkGrid">
-        <article class="wk-card" data-cat="cocina">
-          <span class="wk-badge">Cocina</span>
-          <h3 class="wk-title">Taller Práctico de Pasta Fresca</h3>
-          <div class="wk-meta">
-            <div class="meta-r"><span class="mi">📅</span>Mié. 29 de Abril · 2026</div>
-            <div class="meta-r"><span class="mi">🕐</span>17:30 - 18:30</div>
-            <div class="meta-r"><span class="mi">⏱️</span>Duración: 60 min aprox.</div>
-            <div class="meta-r"><span class="mi">👨‍🍳</span>Sandro Arsena</div>
-            <div class="meta-r"><span class="mi">📍</span><a href="https://maps.app.goo.gl/weyVPJhVGFyLrc5WA" target="_blank" rel="noopener" style="color:var(--red);font-weight:600">Ver ubicación →</a></div>
-          </div>
-          <div class="wk-price">20€ <span style="font-size:13px;color:var(--red);font-weight:600">— Vale dto. 5€</span></div>
-          <p class="wk-desc">Una tarde rodeada de harina y mucha tradición italiana. Aprende a elaborar pasta fresca con tus propias manos. ¡Conviértete en todo un expert@ de la pasta fresca!</p>
-          <div class="wk-spots-bar">
-            <div class="wk-spots-label">
-              <span>Disponibilidad</span>
-              <span class="spots-count urgent">⚡ Solo quedan 4 plazas</span>
-            </div>
-            <div class="wk-progress"><div class="wk-progress-fill" style="width:40%;background:#CC0000"></div></div>
-          </div>
-          <button class="wk-reserve-btn" onclick="openWkModal({title:'Taller Práctico de Pasta Fresca',date:'Mié. 29 de Abril · 2026',time:'17:30 – 18:30h',duration:'60 min aprox.',instructor:'Sandro Arsena',location:'Ver ubicación →',mapUrl:'https://maps.app.goo.gl/weyVPJhVGFyLrc5WA',price:20,spots:4,shopifyUrl:'https://www.tescomaonline.es/products/cortador-rallador-multifuncion-handy',variantId:56345976570239})">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
-            Reservar plaza
-          </button>
-        </article>
-        <article class="wk-card" data-cat="especial">
-          <span class="wk-badge" style="background:#e91e8c">Especial Mamá</span>
-          <h3 class="wk-title">Taller Infantil — Día de la Madre</h3>
-          <div class="wk-meta">
-            <div class="meta-r"><span class="mi">📅</span>Sáb. 2 de Mayo · 2026</div>
-            <div class="meta-r"><span class="mi">🕐</span>11:30 - 12:30</div>
-            <div class="meta-r"><span class="mi">⏱️</span>Duración: 2 horas aprox.</div>
-            <div class="meta-r"><span class="mi">👨‍🍳</span>Esther Candela García</div>
-            <div class="meta-r"><span class="mi">📍</span><a href="https://maps.app.goo.gl/weyVPJhVGFyLrc5WA" target="_blank" rel="noopener" style="color:var(--red);font-weight:600">C/ Hospital, 26 — Elche →</a></div>
-          </div>
-          <div class="wk-price">15€ <span style="font-size:13px;color:var(--red);font-weight:600">— Vale dto. 5€</span></div>
-          <p class="wk-desc">¡Una mañana elaborando recetas deliciosas junto a mamá! Un plan que no vas a querer rechazar. ¡Plazas limitadas!</p>
-          <div class="wk-spots-bar">
-            <div class="wk-spots-label">
-              <span>Disponibilidad</span>
-              <span class="spots-count urgent">⚡ Solo quedan 3 plazas</span>
-            </div>
-            <div class="wk-progress"><div class="wk-progress-fill" style="width:25%;background:#CC0000"></div></div>
-          </div>
-          <button class="wk-reserve-btn" onclick="openWkModal({title:'Taller Infantil — Día de la Madre',date:'Sáb. 2 de Mayo · 2026',time:'11:30 – 12:30h',duration:'2 horas aprox.',instructor:'Esther Candela García',location:'C/ Hospital, 26 — Elche',mapUrl:'https://maps.app.goo.gl/weyVPJhVGFyLrc5WA',price:15,spots:3,shopifyUrl:'https://www.tescomaonline.es/products/cortador-rallador-multifuncion-handy',variantId:56345976570239})">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
-            Reservar plaza
-          </button>
-        </article>
-        <article class="wk-card" data-cat="cocina">
-          <span class="wk-badge">Cocina</span>
-          <h3 class="wk-title">Taller de Recetas de Picoteo</h3>
-          <div class="wk-meta">
-            <div class="meta-r"><span class="mi">📅</span>Jue. 7 de Mayo · 2026</div>
-            <div class="meta-r"><span class="mi">🕐</span>18:30 - 19:30</div>
-            <div class="meta-r"><span class="mi">⏱️</span>Duración: 60 min aprox.</div>
-            <div class="meta-r"><span class="mi">👨‍🍳</span>Chef Manolito</div>
-            <div class="meta-r"><span class="mi">📍</span><a href="https://maps.app.goo.gl/6h6JEPSBx7kCAGfG9" target="_blank" rel="noopener" style="color:var(--red);font-weight:600">Ver ubicación →</a></div>
-          </div>
-          <div class="wk-price">10€ <span style="font-size:13px;color:var(--red);font-weight:600">— Vale dto. 5€</span></div>
-          <p class="wk-desc">Bocados sorprendentes para tus próximas comidas con amigos. Coge papel y boli, ¡no te pierdas nada! ¡Plazas limitadas!</p>
-          <div class="wk-spots-bar">
-            <div class="wk-spots-label">
-              <span>Disponibilidad</span>
-              <span class="spots-count" style="color:#16a34a;font-weight:700">8 plazas disponibles</span>
-            </div>
-            <div class="wk-progress"><div class="wk-progress-fill" style="width:80%;background:#16a34a"></div></div>
-          </div>
-          <button class="wk-reserve-btn" onclick="openWkModal({title:'Taller de Recetas de Picoteo',date:'Jue. 7 de Mayo · 2026',time:'18:30 – 19:30h',duration:'60 min aprox.',instructor:'Chef Manolito',location:'Ver ubicación →',mapUrl:'https://maps.app.goo.gl/6h6JEPSBx7kCAGfG9',price:10,spots:8,shopifyUrl:'https://www.tescomaonline.es/products/cortador-rallador-multifuncion-handy',variantId:56345976570239})">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
-            Reservar plaza
-          </button>
-        </article>
-        <article class="wk-card" data-cat="cocina">
-          <span class="wk-badge">Cocina</span>
-          <h3 class="wk-title">Taller de Arroces del Mundo (II)</h3>
-          <div class="wk-meta">
-            <div class="meta-r"><span class="mi">📅</span>Mar. 26 de Mayo · 2026</div>
-            <div class="meta-r"><span class="mi">🕐</span>18:30 - 19:30</div>
-            <div class="meta-r"><span class="mi">⏱️</span>Duración: 60 min aprox.</div>
-            <div class="meta-r"><span class="mi">👨‍🍳</span>Chef Manolito</div>
-            <div class="meta-r"><span class="mi">📍</span><a href="https://maps.app.goo.gl/PU43Mh1YPWdLFoqe8" target="_blank" rel="noopener" style="color:var(--red);font-weight:600">Ver ubicación →</a></div>
-          </div>
-          <div class="wk-price">10€ <span style="font-size:13px;color:var(--red);font-weight:600">— Vale dto. 5€</span></div>
-          <p class="wk-desc">¡Repetimos! Aprende los secretos del mejor arroz. Te convertirás en el/la arrocer@ favorit@ de tu grupo. ¡GARANTIZADO! ¡Plazas limitadas!</p>
-          <div class="wk-spots-bar">
-            <div class="wk-spots-label">
-              <span>Disponibilidad</span>
-              <span class="spots-count" style="color:#16a34a;font-weight:700">10 plazas disponibles</span>
-            </div>
-            <div class="wk-progress"><div class="wk-progress-fill" style="width:100%;background:#16a34a"></div></div>
-          </div>
-          <button class="wk-reserve-btn" onclick="openWkModal({title:'Taller de Arroces del Mundo (II)',date:'Mar. 26 de Mayo · 2026',time:'18:30 – 19:30h',duration:'60 min aprox.',instructor:'Chef Manolito',location:'Ver ubicación →',mapUrl:'https://maps.app.goo.gl/PU43Mh1YPWdLFoqe8',price:10,spots:10,shopifyUrl:'https://www.tescomaonline.es/products/cortador-rallador-multifuncion-handy',variantId:56345976570239})">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
-            Reservar plaza
-          </button>
-        </article>
-      </div>
-    <div style="text-align:center;margin-top:36px">
-      <a href="https://www.tescomaonline.es/pages/talleres-de-cocina-tiendas-tescoma" target="_blank" rel="noopener" class="btn-primary">Ver todos los talleres →</a>
-    </div>
-  </div>
-</section>
-
 <!-- TESTIMONIOS -->
 <section class="section" style="background:var(--gray)">
   <div class="si">
@@ -1179,96 +1454,7 @@
 <!-- ══════════════════════════════════════════════
      TIENDAS — Leaflet Map + Store Locator
 ══════════════════════════════════════════════ -->
-<section class="section stores-section" id="tiendas">
-  <div class="si">
-    <p class="overline c">Dónde Encontrarnos</p>
-    <h2 class="sec-title c reveal">Nuestras <span class="ac">Tiendas</span></h2>
-    <p class="sec-sub c">9 tiendas en toda España · Encuentra la más cercana a ti</p>
 
-    <!-- City filters -->
-    <div class="city-filters" id="cityFilters">
-      <button class="cpill active" onclick="filterCity('all',this)">Todas (9)</button>
-      <button class="cpill" onclick="filterCity('Madrid',this)">Madrid (3)</button>
-      <button class="cpill" onclick="filterCity('Alicante',this)">Alicante (1)</button>
-      <button class="cpill" onclick="filterCity('Elche',this)">Elche (1)</button>
-      <button class="cpill" onclick="filterCity('Murcia',this)">Murcia (1)</button>
-      <button class="cpill" onclick="filterCity('Zaragoza',this)">Zaragoza (1)</button>
-      <button class="cpill" onclick="filterCity('Sevilla',this)">Sevilla (1)</button>
-      <button class="cpill" onclick="filterCity('Santander',this)">Santander (1)</button>
-    </div>
-
-    <!-- Mobile tabs -->
-    <div class="stores-mobile-tabs">
-      <div class="mob-tab active" onclick="mobTab('list',this)">📋 Lista</div>
-      <div class="mob-tab" onclick="mobTab('map',this)">🗺️ Mapa</div>
-    </div>
-
-    <!-- Main layout: list + map -->
-    <div class="stores-layout">
-      <div class="store-list-panel" id="storeListPanel"></div>
-      <div id="storeMap"></div>
-    </div>
-
-    <!-- Detail panel -->
-    <div class="store-detail-panel" id="storeDetailPanel">
-      <div>
-        <div class="sdp-city" id="sdpCity"></div>
-        <div class="sdp-addr" id="sdpAddr"></div>
-        <div class="sdp-info" id="sdpInfo"></div>
-      </div>
-      <div class="sdp-btns">
-        <a href="#" id="sdpDirBtn" target="_blank" rel="noopener" class="sdp-btn-r">📍 Cómo llegar</a>
-        <a href="#" id="sdpCallBtn" class="sdp-btn-o">📞 Llamar</a>
-      </div>
-    </div>
-
-    <div style="text-align:center;margin-top:32px;padding-top:28px;border-top:1px solid var(--border)">
-      <p style="color:var(--muted);margin-bottom:16px;font-size:15px">¿No encuentras una tienda cerca? Compra en nuestra tienda online</p>
-      <a href="https://www.tescomaonline.es/" target="_blank" rel="noopener" class="btn-primary">Comprar Online →</a>
-    </div>
-  </div>
-</section>
-
-<!-- ELIGE TU ÁREA -->
-<section class="section" style="background:var(--off)">
-  <div class="si">
-    <div style="text-align:center;margin-bottom:48px">
-      <p class="overline c">Cómo Podemos Ayudarte</p>
-      <h2 class="sec-title c reveal">Elige tu <span class="ac">área</span></h2>
-      <p class="sec-sub c" style="margin-bottom:0">Tanto si cocinas en casa como si gestionas un negocio de hostelería, tenemos el canal adecuado para ti.</p>
-    </div>
-    <div class="choose-grid">
-      <div class="choose-card b2c">
-        <div class="ch-tag">CONSUMIDOR · B2C</div>
-        <div class="ch-icon">🛒</div>
-        <h3 class="ch-title">Tienda Online</h3>
-        <p class="ch-desc">Descubre toda la colección TESCOMA y lleva la mejor cocina a tu hogar. Más de 2500 referencias con envíos rápidos a toda España.</p>
-        <div class="ch-feats">
-          <div class="ch-feat">Catálogo completo con más de 2500 productos</div>
-          <div class="ch-feat">Envío a toda España en 24-48 h</div>
-          <div class="ch-feat">Novedades, ofertas y outlet online</div>
-          <div class="ch-feat">Blog de recetas y vídeos demostrativos</div>
-        </div>
-        <a href="https://www.tescomaonline.es/" target="_blank" rel="noopener" class="btn-b2c">IR A LA TIENDA</a>
-      </div>
-      <div class="choose-card b2b">
-        <div class="ch-tag">PROFESIONAL · B2B</div>
-        <div class="ch-icon">🏢</div>
-        <h3 class="ch-title">Portal Profesional</h3>
-        <p class="ch-desc">Plataforma exclusiva para distribuidores, restaurantes y hoteles. Gestiona tus pedidos con tarifas y condiciones especiales para el sector profesional.</p>
-        <div class="ch-feats">
-          <div class="ch-feat">Precios y tarifas del canal profesional</div>
-          <div class="ch-feat">Historial de pedidos y seguimiento en tiempo real</div>
-          <div class="ch-feat">Catálogo profesional y ofertas exclusivas B2B</div>
-          <div class="ch-feat">Soporte dedicado y gestor de cuenta propio</div>
-        </div>
-        <a href="https://tescoma-web.ntv.es/login" target="_blank" rel="noopener" class="btn-b2b">ACCEDER AL PORTAL PROFESIONAL</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
   </div>
   <div class="footer-main">
@@ -1282,7 +1468,7 @@
       </div>
       <div class="footer-ctas">
         <a href="https://www.tescomaonline.es/" target="_blank" rel="noopener" class="fc r">🛒 Tienda Online B2C</a>
-        <a href="https://tescoma-web.ntv.es/login" target="_blank" rel="noopener" class="fc o">🏢 Portal Profesional (B2B)</a>
+        <a href="https://tescoma-web.github.io/ntv123/" target="_blank" rel="noopener" class="fc o">🏢 Portal Profesional (B2B)</a>
       </div>
     </div>
     <div class="footer-col"><h4>Comprar</h4><ul><li><a href="https://www.tescomaonline.es/collections/novedad" target="_blank" rel="noopener">Novedades</a></li><li><a href="https://www.tescomaonline.es/collections/oferta" target="_blank" rel="noopener">Ofertas</a></li><li><a href="https://www.tescomaonline.es/collections/outlet" target="_blank" rel="noopener">Outlet</a></li><li><a href="https://www.tescomaonline.es/collections/electrodomesticos" target="_blank" rel="noopener">Electrodomésticos</a></li><li><a href="https://www.tescomaonline.es/collections/all" target="_blank" rel="noopener">Ver todo</a></li></ul></div>
@@ -1712,45 +1898,24 @@ function showMapBtn() {
 window.addEventListener('resize', showMapBtn, {passive:true});
 showMapBtn();
 </script>
-<!-- ══════════════════════════════════════════════
-     MODAL RESERVA DE TALLER — SHOPIFY BUY BUTTON
-     ══════════════════════════════════════════════
-     INSTRUCCIONES PARA ACTIVAR EL PAGO:
-     1. En Shopify, crea un producto por cada taller (sin envío físico)
-     2. Copia la URL del producto: tescomaonline.es/products/nombre-taller
-     3. Reemplaza el valor de "shopifyUrl" en cada botón wk-reserve-btn
-     4. ¡Listo! Shopify se encarga del pago y manda el email de confirmación
-══════════════════════════════════════════════ -->
 <div class="wk-modal-overlay" id="wkModalOverlay" onclick="closeWkModalOnBg(event)">
-  <div class="wk-modal" id="wkModal" role="dialog" aria-modal="true" aria-labelledby="wkModalTitleEl">
-
-    <!-- Cabecera oscura -->
+  <div class="wk-modal" id="wkModal" role="dialog" aria-modal="true">
     <div class="wk-modal-head">
-      <div class="wk-modal-head-info">
+      <div>
         <div class="wk-modal-eyebrow">Reserva tu plaza</div>
         <div class="wk-modal-title" id="wkModalTitleEl">—</div>
       </div>
-      <button class="wk-modal-close" onclick="closeWkModal()" aria-label="Cerrar">✕</button>
+      <button class="wk-modal-close" onclick="closeWkModal()">✕</button>
     </div>
-
-    <!-- Cuerpo -->
     <div class="wk-modal-body">
-
-      <!-- Resumen del taller -->
       <div class="wk-modal-summary" id="wkModalSummary"></div>
-
-      <!-- Selector de personas -->
-      <div class="wk-qty-section">
-        <div class="wk-qty-label">¿Cuántas personas asistirán?</div>
-        <div class="wk-qty-ctrl">
-          <button class="wk-qty-btn" id="wkQtyMinus" onclick="changeQty(-1)" aria-label="Menos">−</button>
-          <div class="wk-qty-num" id="wkQtyNum">1</div>
-          <button class="wk-qty-btn" id="wkQtyPlus" onclick="changeQty(1)" aria-label="Más">+</button>
-          <span class="wk-qty-max" id="wkQtyMax"></span>
-        </div>
+      <div class="wk-qty-label">¿Cuántas personas asistirán?</div>
+      <div class="wk-qty-ctrl">
+        <button class="wk-qty-btn" id="wkQtyMinus" onclick="changeQty(-1)">−</button>
+        <div class="wk-qty-num" id="wkQtyNum">1</div>
+        <button class="wk-qty-btn" id="wkQtyPlus" onclick="changeQty(1)">+</button>
+        <span class="wk-qty-max" id="wkQtyMax"></span>
       </div>
-
-      <!-- Total -->
       <div class="wk-modal-total">
         <div>
           <div class="wk-modal-total-label" id="wkTotalLabel">1 persona × 20€</div>
@@ -1758,64 +1923,37 @@ showMapBtn();
         </div>
         <div class="wk-modal-total-price" id="wkTotalPrice">20€</div>
       </div>
-
-      <!-- CTA Shopify -->
       <a class="wk-modal-cta" id="wkShopifyBtn" href="#" target="_blank" rel="noopener">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
-        Ir a pagar de forma segura →
+        Añadir al carrito →
       </a>
-
-      <!-- Nota informativa -->
-      <p class="wk-modal-note">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-        Pago 100% seguro en nuestra tienda Tescoma · Email de confirmación automático
-      </p>
+      <p class="wk-modal-note">🔒 Pago 100% seguro en nuestra tienda Tescoma · Email de confirmación automático</p>
     </div>
   </div>
 </div>
 
 <script>
-/* ════════════════════════════════════
-   MODAL RESERVA TALLERES
-════════════════════════════════════ */
-let wkCurrent = {};   // datos del taller activo
-let wkQty = 1;        // personas seleccionadas
+let wkCurrent = {}, wkQty = 1;
 
 function openWkModal(data) {
-  wkCurrent = data;
-  wkQty = 1;
-
-  // Título
+  wkCurrent = data; wkQty = 1;
   document.getElementById('wkModalTitleEl').textContent = data.title;
-
-  // Resumen
   document.getElementById('wkModalSummary').innerHTML = `
     <div class="meta-r"><span class="mi">📅</span>${data.date}</div>
     <div class="meta-r"><span class="mi">🕐</span>${data.time}</div>
     <div class="meta-r"><span class="mi">⏱️</span>Duración: ${data.duration}</div>
     <div class="meta-r"><span class="mi">👨‍🍳</span>${data.instructor}</div>
-    <div class="meta-r"><span class="mi">📍</span><a href="${data.mapUrl}" target="_blank" rel="noopener" style="color:var(--red);font-weight:600">${data.location} →</a></div>
+    <div class="meta-r"><span class="mi">📍</span><a href="${data.mapUrl}" target="_blank" rel="noopener" style="color:var(--red);font-weight:600">${data.location}</a></div>
     <div class="meta-r" style="margin-top:4px;padding-top:10px;border-top:1px solid #e5e5e5">
       <span class="mi">${data.spots <= 4 ? '⚡' : '👥'}</span>
-      <span style="font-weight:700;color:${data.spots <= 4 ? 'var(--red)' : '#16a34a'}">
+      <span style="font-weight:700;color:${data.spots <= 4 ? '#CC0000' : '#16a34a'}">
         ${data.spots <= 4 ? `¡Solo quedan ${data.spots} plazas!` : `${data.spots} plazas disponibles`}
       </span>
-    </div>
-  `;
-
-  // Límite personas
+    </div>`;
   document.getElementById('wkQtyMax').textContent = `máx. ${data.spots}`;
-
-  // Actualizar totales y botón
   updateWkModal();
-
-  // Abrir
-  const overlay = document.getElementById('wkModalOverlay');
-  overlay.classList.add('open');
+  document.getElementById('wkModalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
-
-  // Foco accesible
-  setTimeout(() => document.getElementById('wkModal').focus(), 50);
 }
 
 function closeWkModal() {
@@ -1828,8 +1966,7 @@ function closeWkModalOnBg(e) {
 }
 
 function changeQty(delta) {
-  const max = wkCurrent.spots || 10;
-  wkQty = Math.max(1, Math.min(max, wkQty + delta));
+  wkQty = Math.max(1, Math.min(wkCurrent.spots || 10, wkQty + delta));
   updateWkModal();
 }
 
@@ -1837,61 +1974,22 @@ function updateWkModal() {
   const price = wkCurrent.price || 0;
   const total = price * wkQty;
   const max = wkCurrent.spots || 10;
-
-  // Etiqueta total
-  document.getElementById('wkTotalLabel').textContent =
-    `${wkQty} ${wkQty === 1 ? 'persona' : 'personas'} × ${price}€`;
+  document.getElementById('wkTotalLabel').textContent = `${wkQty} ${wkQty === 1 ? 'persona' : 'personas'} × ${price}€`;
   document.getElementById('wkTotalPrice').textContent = `${total}€`;
-
-  // Botones +/−
   document.getElementById('wkQtyMinus').disabled = wkQty <= 1;
   document.getElementById('wkQtyPlus').disabled = wkQty >= max;
   document.getElementById('wkQtyNum').textContent = wkQty;
-
-  // ── CÓMO FUNCIONA EL ENLACE AL CARRITO DE SHOPIFY ──────────────────────────
-  //
-  // OPCIÓN A (lo que funciona AHORA): enlace a la página del producto.
-  // El cliente llega al producto en Shopify y selecciona la cantidad allí.
-  //
-  // OPCIÓN B (con cantidad automática): usa el permalink de carrito de Shopify:
-  //   tescomaonline.es/cart/VARIANT_ID:CANTIDAD
-  //   Esto añade directamente N unidades al carrito y lleva al checkout.
-  //
-  // Para activar la Opción B:
-  //   1. Shopify Admin → Productos → [taller] → clic en la variante
-  //   2. En la URL del navegador verás algo como: .../variants/48123456789
-  //   3. Ese número (48123456789) es el variantId
-  //   4. Añádelo al objeto de cada taller: variantId: 48123456789
-  //
-  // ────────────────────────────────────────────────────────────────────────────
-
-  const variantId = wkCurrent.variantId;   // undefined hasta que lo añadáis
-  const baseUrl   = wkCurrent.shopifyUrl || '#';
-
-  let finalUrl;
-  if (variantId) {
-    // ✅ Opción B: añade la cantidad elegida directamente al carrito
-    finalUrl = `https://www.tescomaonline.es/cart/${variantId}:${wkQty}`;
-  } else {
-    // ℹ️ Opción A: va a la página del producto (el cliente elige cantidad allí)
-    finalUrl = baseUrl;
-  }
-
-  document.getElementById('wkShopifyBtn').href = finalUrl;
-
-  // Actualizar texto del botón según modo
   const btn = document.getElementById('wkShopifyBtn');
-  btn.innerHTML = variantId
-    ? `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
-       Añadir ${wkQty} plaza${wkQty > 1 ? 's' : ''} al carrito →`
-    : `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
-       Ir a pagar de forma segura →`;
+  if (wkCurrent.variantId) {
+    btn.href = `https://www.tescomaonline.es/cart/${wkCurrent.variantId}:${wkQty}`;
+    btn.innerHTML = `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>Añadir ${wkQty} plaza${wkQty > 1 ? 's' : ''} al carrito →`;
+  } else {
+    btn.href = wkCurrent.shopifyUrl || '#';
+    btn.innerHTML = `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>Ir a pagar de forma segura →`;
+  }
 }
 
-// Cerrar con ESC
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeWkModal();
-});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeWkModal(); });
 </script>
 </body>
 </html>
